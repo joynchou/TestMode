@@ -264,15 +264,15 @@ void LCD5510_Init(void)
 {  
 	GPIO_InitTypeDef    GPIO_InitStructure;     //设置管脚
     GPIO_InitStructure.Mode = GPIO_PullUp;
-   	GPIO_InitStructure.Pin = GPIO_Pin_0||GPIO_Pin_1||GPIO_Pin_2||GPIO_Pin_3||GPIO_Pin_4;    //lcd5110
-	GPIO_Inilize(GPIO_P5, &GPIO_InitStructure);  
+   	GPIO_InitStructure.Pin = GPIO_Pin_0||GPIO_Pin_1||GPIO_Pin_2||GPIO_Pin_3||GPIO_Pin_4||GPIO_Pin_5||GPIO_Pin_6||GPIO_Pin_7;    //lcd5110
+	GPIO_Inilize(GPIO_P4, &GPIO_InitStructure);  
 	LCD_reset_hard;				//硬件复位
 //	LCD_reset_soft;				//软件复位
 
 	LCD_write_cmd(0x21);		//工作模式, 水平寻址, 扩展指令
 	LCD_write_cmd(0x06);		//VLCD温度系数2
 	LCD_write_cmd(0x13);		//设置偏置系统(BSx) 1:48
-	LCD_write_cmd(0xc8);		//设置电压VLCD = 3.06 + 0.06*Vop, 对比度调整
+	LCD_write_cmd(0xb9);		//设置电压VLCD = 3.06 + 0.06*Vop, 对比度调整
 
 	LCD_write_cmd(0x20);		//工作模式, 水平寻址, 常规指令
 	LCD_write_cmd(0x0c);		//普通模式

@@ -52,14 +52,11 @@ void    UART1_init(unsigned long BandRate)
 	// PrintString1("STC15w4k58s4's UART1 is open \r\n");   //串口测试
 }
 void test(void)//器件测试
-{    unsigned char i, j, k;
-	unsigned char LCD_contrast = 0xc8;
-
-
-//	stepMotor_Init (STEP_MOTOR_6,1.8f,1,2000);
-//	setStepMotorWithRound(STEP_MOTOR_6,5,5);   
-//   open_StepMotor(STEP_MOTOR_6);
-   LCD5510_Init();
+{ 
+	unsigned char code *str1 = {"Nokia 5510 Test, Haha^_^ I am so glad to see you agian! Do you think so?"};
+	unsigned char code *str2 = {"I Love You AVR"};
+  unsigned char i, j, k;
+	unsigned char LCD_contrast = 0xc8; 
 	while(*str1)
 	{
 		LCD_prints(0, 0, str1++); 
@@ -69,19 +66,65 @@ void test(void)//器件测试
 	str1 -= i;
 	LCD_printsl(0, 0, str1);
 
-	delay_ms(200); 
+	delay_ms(200);delay_ms(200);delay_ms(200);delay_ms(200);delay_ms(200);; delay_ms(200);delay_ms(200);delay_ms(200);delay_ms(200);delay_ms(200);;
 	LCD_clr_scr();		//清屏
+	for(i = 0; i < 14; i++) {LCD_printc(i, 2, str2[i]); delay_ms(250);}
+
+	delay_ms(200);delay_ms(200);delay_ms(200);delay_ms(200);delay_ms(200);;
+	LCD_prints(0, 3, ">--(*^_^*)--<");
+	delay_ms(200);delay_ms(200);delay_ms(200);delay_ms(200);delay_ms(200);;
+
+	LCD_prints(0, 0, "Blank Test ");
+	delay_ms(200);delay_ms(200);delay_ms(200);delay_ms(200);delay_ms(200);;
+	LCD_show_blank;		//空白测试
+	delay_ms(200);delay_ms(200);delay_ms(200);delay_ms(200);delay_ms(200);;
+	LCD_prints(0, 0, "Normal Test");
+	LCD_show_normal;	//恢复正常
+	delay_ms(200);delay_ms(200);delay_ms(200);delay_ms(200);delay_ms(200);;
+	LCD_prints(0, 0, "Black Test ");
+	delay_ms(200);delay_ms(200);delay_ms(200);delay_ms(200);delay_ms(200);;
+	LCD_show_black;		//全黑检测坏点
+	delay_ms(200);delay_ms(200);delay_ms(200);delay_ms(200);delay_ms(200);;
+	LCD_show_normal;	//恢复正常
+	delay_ms(200);delay_ms(200);delay_ms(200);delay_ms(200);delay_ms(200);;
+	LCD_prints(0, 0, "Inverse Test");
+	LCD_show_inverse;	//反色
+	delay_ms(200);delay_ms(200);delay_ms(200);delay_ms(200);delay_ms(200);;
+	LCD_prints(0, 0, "Normal again");
+	LCD_show_normal;	//恢复正常
+	delay_ms(200);delay_ms(200);delay_ms(200);delay_ms(200);delay_ms(200);;
+	LCD_clr_scr();		//清屏
+	delay_ms(200);delay_ms(200);delay_ms(200);delay_ms(200);delay_ms(200);;
+	
+	i = 0; j = 0; k =0;
+	while(k++ < 101)	//ASCII字符测试
+	{ 
+		LCD_printc(i, j, k + 32); 
+		delay_ms(250); 
+		i++; if(i == 14) {i = 0; j++;}
+		if(j == 6) j = 0;
+	}
+	
+	LCD_prints(2, 1, "Alexi2008");
+	while(1)				//对比度软件调节
+	{
+		LCD_write_cmd(0x23);//工作模式, 水平寻址, 扩展指令	
+
+		for(i = 0; i < 10; i++) {LCD_contrast++; LCD_write_cmd(LCD_contrast); delay_ms(250);}
+		for(i = 0; i < 20; i++) {LCD_contrast--; LCD_write_cmd(LCD_contrast); delay_ms(250);}
+		for(i = 0; i < 10; i++) {LCD_contrast++; LCD_write_cmd(LCD_contrast); delay_ms(250);}
+	}
+
 
 }
 void setup(void)
 {
 	UART1_init(115200L);
-	// timerInit();
+  //timerInit();
 	Board_LED_Init();
 	Button_config();
-	ADC_config(ADC_P10, ADC_540T);
-	//LCD1602_Init();
-	EA = 1;
+	//ADC_config(ADC_P10, ADC_540T);
+	LCD5510_Init();
   test();
 
 }

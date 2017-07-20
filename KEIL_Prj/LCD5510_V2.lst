@@ -1,4 +1,4 @@
-C51 COMPILER V8.05a   LCD5510_V2                                                           07/19/2017 22:02:10 PAGE 1   
+C51 COMPILER V8.05a   LCD5510_V2                                                           07/20/2017 09:51:39 PAGE 1   
 
 
 C51 COMPILER V8.05a, COMPILATION OF MODULE LCD5510_V2
@@ -62,7 +62,7 @@ line level    source
   52          {0x00,0x3E,0x41,0x41,0x41,0x3E},//O(47)
   53          {0x00,0x7F,0x09,0x09,0x09,0x06},//P(48)
   54          {0x00,0x3E,0x41,0x51,0x21,0x5E},//Q(49)
-C51 COMPILER V8.05a   LCD5510_V2                                                           07/19/2017 22:02:10 PAGE 2   
+C51 COMPILER V8.05a   LCD5510_V2                                                           07/20/2017 09:51:39 PAGE 2   
 
   55          {0x00,0x7F,0x09,0x19,0x29,0x46},//R(50)
   56          {0x00,0x46,0x49,0x49,0x49,0x31},//S(51)
@@ -126,7 +126,7 @@ line level    source
  114   1        
  115   1        LCD_CS = 0;     //使能
  116   1        LCD_DC = dat_cmd; //1-数据  //0-指令
-C51 COMPILER V8.05a   LCD5510_V2                                                           07/19/2017 22:02:10 PAGE 3   
+C51 COMPILER V8.05a   LCD5510_V2                                                           07/20/2017 09:51:39 PAGE 3   
 
  117   1      
  118   1        for(i = 8; i; i--)  //8位数据, 先高后低
@@ -190,7 +190,7 @@ line level    source
  176          //显示清行
  177          //num:  0 - 5
  178          void LCD_clr_row(unsigned char num)
-C51 COMPILER V8.05a   LCD5510_V2                                                           07/19/2017 22:02:10 PAGE 4   
+C51 COMPILER V8.05a   LCD5510_V2                                                           07/20/2017 09:51:39 PAGE 4   
 
  179          {
  180   1        unsigned char i;
@@ -254,7 +254,7 @@ line level    source
  238   2          if(y == 6)  {y = 0;}
  239   2        }
  240   1      }
-C51 COMPILER V8.05a   LCD5510_V2                                                           07/19/2017 22:02:10 PAGE 5   
+C51 COMPILER V8.05a   LCD5510_V2                                                           07/20/2017 09:51:39 PAGE 5   
 
  241          
  242          
@@ -282,15 +282,16 @@ line level    source
  264          {  
  265   1        GPIO_InitTypeDef    GPIO_InitStructure;     //设置管脚
  266   1          GPIO_InitStructure.Mode = GPIO_PullUp;
- 267   1          GPIO_InitStructure.Pin = GPIO_Pin_0||GPIO_Pin_1||GPIO_Pin_2||GPIO_Pin_3||GPIO_Pin_4;    //lcd5110
- 268   1        GPIO_Inilize(GPIO_P5, &GPIO_InitStructure);  
+ 267   1          GPIO_InitStructure.Pin = GPIO_Pin_0||GPIO_Pin_1||GPIO_Pin_2||GPIO_Pin_3||GPIO_Pin_4||GPIO_Pin_5||GPIO_
+             -Pin_6||GPIO_Pin_7;    //lcd5110
+ 268   1        GPIO_Inilize(GPIO_P4, &GPIO_InitStructure);  
  269   1        LCD_reset_hard;       //硬件复位
  270   1      //  LCD_reset_soft;       //软件复位
  271   1      
  272   1        LCD_write_cmd(0x21);    //工作模式, 水平寻址, 扩展指令
  273   1        LCD_write_cmd(0x06);    //VLCD温度系数2
  274   1        LCD_write_cmd(0x13);    //设置偏置系统(BSx) 1:48
- 275   1        LCD_write_cmd(0xc8);    //设置电压VLCD = 3.06 + 0.06*Vop, 对比度调整
+ 275   1        LCD_write_cmd(0xb9);    //设置电压VLCD = 3.06 + 0.06*Vop, 对比度调整
  276   1      
  277   1        LCD_write_cmd(0x20);    //工作模式, 水平寻址, 常规指令
  278   1        LCD_write_cmd(0x0c);    //普通模式
@@ -317,6 +318,8 @@ MODULE INFORMATION:   STATIC OVERLAYABLE
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.
+
+C51 COMPILER V8.05a   LCD5510_V2                                                           07/20/2017 09:51:39 PAGE 6   
 
 
 C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
